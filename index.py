@@ -20,7 +20,6 @@ class CrearListas:
 lista = CrearListas()
 
 def añadirlistas(x,lista):
-    alfabeto = []
     os.system('clear')
     print("|----------------------------------------------------------------------|")
     print("||                   *cuantos alfabetos desea añadir*                 ||")
@@ -28,6 +27,7 @@ def añadirlistas(x,lista):
     cantidadAlfabetos = int(input("|-Escoja una opción:"))
     print("|----------------------------------------------------------------------|")
     for i in range(0,cantidadAlfabetos):
+        alfabeto = []
         print("|----------------------------------------------------------------------|")
         print(f"||       *cuantos caracteres desea añadir al alfabero {i+1}*              ||")
         print("|----------------------------------------------------------------------|")
