@@ -38,7 +38,4 @@ def seleccion(opcion):
     switch={
         1:print("caso 1")
     }
-        
-        
-
 menu()
