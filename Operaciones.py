@@ -12,7 +12,7 @@ class Operaciones:
     
     
     def union(self, otro):
-        elementos = list(self.elementos + otro.elementos)
+        elementos = list(set(self.elementos) | set(otro.elementos))
         return (elementos)
     
     def diferencia(self, otro):
