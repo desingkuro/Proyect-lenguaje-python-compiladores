@@ -4,12 +4,11 @@ from collections import OrderedDict
 
 class Operaciones:
     
-    def __init__(self, elementos, tipo):
+    def __init__(self, elementos):
         self.elementos = elementos
-        self.tipo = tipo
     
     def __str__(self):
-        return f"{self.tipo}: {','.join(self.elementos)}"
+        return f"{','.join(self.elementos)}"
     
     
     def union(self, otro):
