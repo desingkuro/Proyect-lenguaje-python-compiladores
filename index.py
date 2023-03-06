@@ -1,32 +1,30 @@
 from functools import reduce
 import time
-from Operaciones import Operaciones
-
 from Alfabeto import Alfabeto
+from Lenguaje import Lenguaje
 
-
-Lenguajes = []
+alfabetos = []
+lenguajes = []
 
 def crear_alfabetos(cantidad):
-    global alfabetos
-    alfabetos = []
     for i in range(cantidad):
         simbolos = input(f"Ingrese los símbolos del alfabeto {i+1} separados por comas: ").split(",")
         alfabeto = Alfabeto(simbolos)
         alfabetos.append(alfabeto)
     print(f"Se han creado {cantidad} alfabetos.")
     
-def mostrarAlfabetos():
-    if len(alfabetos) == 0:
-        print("No se han creado alfabetos aún.")
-    else:
-        for i, alfabeto in enumerate(alfabetos):
-            print(f"Alfabeto {i+1}: {alfabeto.get()}")
+def mostrarAlfabetos():    
+    for i, alfabeto in enumerate(alfabetos):
+        print(f"Alfabeto {i+1}: {alfabeto.get()}")
+        
+def mostrarLenguajes():    
+    for i, lenguaje in enumerate(lenguajes):
+        print(f"Lenguaje {i+1}: {lenguaje.get()}")
             
 def opciones():
     global alfabetosSeleccionados
     aux = True
-    eleccion = input(f"Ingrese los numeros de los alfabetos a los que desea realizar la unión separados por comas (1-{len(alfabetos)}): ")
+    eleccion = input(f"Ingrese los numeros de los alfabetos separados por comas (1-{len(alfabetos)}): ")
     numeros = [int(opcion) for opcion in eleccion.split(",")]
     for numero in numeros:
         if numero < 1 or numero > len(alfabetos):
@@ -35,6 +33,37 @@ def opciones():
             opciones()
     if aux:
         alfabetosSeleccionados = [alfabetos[numero-1] for numero in numeros]
+        
+def opciones2():
+    global alfabetosSeleccionados2
+    aux = True
+    eleccion = input(f"Ingrese los numeros de dos alfabetos separados por comas para utilizarlos para la creación de los dos lenguajes correspondientes (1-{len(alfabetos)}): ")
+    numeros = [int(opcion) for opcion in eleccion.split(",")]
+    for numero in numeros:
+        if len(numeros) < 1 and len(numeros) > 2:
+            print("Solo debe elegir dos alfabetos.")
+            opciones2()
+        else:
+            if numero < 1 or numero > len(alfabetos):
+                print(f"El número {numero} no es válido. Solo puede elegir números entre 1 y {len(alfabetos)}.")
+                aux = False
+                opciones2()
+    if aux:
+        alfabetosSeleccionados2 = [alfabetos[numero-1] for numero in numeros]
+        
+def crearLenguajes():
+    l1 = Lenguaje([])
+    l2 = Lenguaje([])
+    mostrarAlfabetos()
+    opciones2()
+    cantidadl1 = int(input("Ingrese la cantidad de palabras que quiere que contenga el primer lenguaje: "))
+    cantidadl2 = int(input("Ingrese la cantidad de palabras que quiere que contenga el segundo lenguaje: "))
+    l1.generar_palabras([alfabetosSeleccionados2[0]], cantidadl1)
+    l2.generar_palabras([alfabetosSeleccionados2[1]], cantidadl2)
+    lenguajes.append(l1)
+    lenguajes.append(l2)
+    mostrarLenguajes()
+    print(f"Se han creado correctamente los dos lenguajes.")
 
 def menu():
     seguir=True
@@ -99,32 +128,56 @@ def caso_1():
         crear_alfabetos(cantidad_alfabetos)    
         
 def caso_2():
-    print("¿Qué alfabetos desea unir?")
-    mostrarAlfabetos()
-    opciones()
-    union = reduce(lambda a, b: a.union(b), alfabetosSeleccionados)
-    print("La union de los alfabetos seleccionados es:")
-    print(union.get())
+    if len(alfabetos) == 0:
+        print("Primero debe crear los alfabetos.")
+    else: 
+        print("¿Qué alfabetos desea unir?")
+        mostrarAlfabetos()
+        opciones()
+        union = reduce(lambda a, b: a.union(b), alfabetosSeleccionados)
+        print("La union de los alfabetos seleccionados es:")
+        print(union.get())
     
 def caso_3():
-    print("¿ De qué alfabetos deseas la diferencia?")
-    mostrarAlfabetos()
-    opciones = input(f"Ingrese los numeros de los alfabetos a los que desea realizar la diferncia separados por comas (1-{len(alfabetos)}): ")
-    numeros = [int(opcion) for opcion in opciones.split(",")]
-    alfabetosSeleccionados = [alfabetos[numero-1] for numero in numeros]
-    union = reduce(lambda a, b: a.union(b), alfabetosSeleccionados)
-    print("La union de los alfabetos seleccionados es:")
-    print(union.get())
+    if len(alfabetos) == 0:
+        print("Primero debe crear los alfabetos.")
+    else: 
+        print("¿De qué alfabetos deseas la diferencia?")
+        mostrarAlfabetos()
+        opciones()
+        diferencia = reduce(lambda a, b: a.diferencia(b), alfabetosSeleccionados)
+        print("La diferencia de los alfabetos seleccionados es:")
+        print(diferencia.get())
 
 def caso_4():
-    pass
+    if len(alfabetos) == 0:
+        print("Primero debe crear los alfabetos.")
+    else: 
+        print("¿De qué alfabetos deseas la intersección?")
+        mostrarAlfabetos()
+        opciones()
+        interseccion = reduce(lambda a, b: a.interseccion(b), alfabetosSeleccionados)
+        print("La interseccion de los alfabetos seleccionados es:")
+        print(interseccion.get())
 
 def caso_5():
-    pass
-
+    if len(alfabetos) == 0:
+        print("Primero debe crear los alfabetos.")
+    else: 
+        print("¿De qué alfabeto desea la cerradura de estrellas?")
+        mostrarAlfabetos()
+        opcion = int(input(f"Ingrese el núnero del alfabeto {1-len(alfabetos)}: "))
+        if opcion < 1 or opcion > len(alfabetos):
+            print(f"El número {opcion} no es válido. Solo puede elegir números entre 1 y {len(alfabetos)}.")
+        else: 
+            cantidad = int(input("¿Qué cantidad de palabras quiere que haya?: "))
+            print(alfabetos[opcion - 1].cerraduraEstrellas(cantidad))
+    
 def caso_6():
-    pass
-
+    if len(alfabetos) == 0:
+        print("Primero debe crear los alfabetos para poder generar los lenguajes.")
+    else:
+        crearLenguajes()
 def caso_7():
     pass
 

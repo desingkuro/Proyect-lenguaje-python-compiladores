@@ -9,7 +9,7 @@ class Lenguaje(Operaciones):
     def generar_palabras(self, alfabetos, cantidad_palabras):
         elementos = []
         for alfabeto in alfabetos:
-            elementos += ["".join(random.choices(alfabeto.elementos, k=random.randint(1, 10))) for i in range(cantidad_palabras)]
+            elementos += ["".join(random.choices(alfabeto.elementos, k=random.randint(1, 20))) for i in range(cantidad_palabras)]
         self.elementos = elementos
         
     def get(self):

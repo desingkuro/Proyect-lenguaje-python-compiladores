@@ -12,8 +12,8 @@ class Alfabeto(Operaciones):
     def cerraduraEstrellas(self, nPalabras):
         palabras = set()
         palabras.add("#")   
-        while(len(palabras) + 1 != nPalabras):
-            cantR = random.randint(1, len(self.elementos))
+        while(len(palabras) - 1 != nPalabras):
+            cantR = random.randint(1, 20)
             palabra_aleatoria = "".join(random.choices(self.elementos, k= cantR))
             palabras.add(palabra_aleatoria)
         return Alfabeto(palabras)
