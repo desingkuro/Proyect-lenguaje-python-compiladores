@@ -1,14 +1,40 @@
+from functools import reduce
 import time
+from Operaciones import Operaciones
 
 from Alfabeto import Alfabeto
 
-def generar_alfabetos(cantidad_alfabetos):
-    alfabetos = {}
-    for i in range(cantidad_alfabetos):
-        simbolos = input("Por favor, introduzca los simbolos del alfabeto separados por comas").split(",")
-        nombre_alfabeto = f"alfabeto{i+1}"
-        alfabetos[nombre_alfabeto] = Alfabeto(simbolos)
-    return alfabetos
+
+Lenguajes = []
+
+def crear_alfabetos(cantidad):
+    global alfabetos
+    alfabetos = []
+    for i in range(cantidad):
+        simbolos = input(f"Ingrese los símbolos del alfabeto {i+1} separados por comas: ").split(",")
+        alfabeto = Alfabeto(simbolos)
+        alfabetos.append(alfabeto)
+    print(f"Se han creado {cantidad} alfabetos.")
+    
+def mostrarAlfabetos():
+    if len(alfabetos) == 0:
+        print("No se han creado alfabetos aún.")
+    else:
+        for i, alfabeto in enumerate(alfabetos):
+            print(f"Alfabeto {i+1}: {alfabeto.get()}")
+            
+def opciones():
+    global alfabetosSeleccionados
+    aux = True
+    eleccion = input(f"Ingrese los numeros de los alfabetos a los que desea realizar la unión separados por comas (1-{len(alfabetos)}): ")
+    numeros = [int(opcion) for opcion in eleccion.split(",")]
+    for numero in numeros:
+        if numero < 1 or numero > len(alfabetos):
+            print(f"El número {numero} no es válido. Solo puede elegir números entre 1 y {len(alfabetos)}.")
+            aux = False
+            opciones()
+    if aux:
+        alfabetosSeleccionados = [alfabetos[numero-1] for numero in numeros]
 
 def menu():
     seguir=True
@@ -20,9 +46,9 @@ def menu():
         print("|----------------------------------------------------------------------|")
         print("||                          *Proceso de Alfabetos*                    ||")
         print("|----------------------------------------------------------------------|")
-        print("|1.Crear alfabetos                    |4.Diferencia de alfabetos       |")
+        print("|1.Crear alfabetos                    |4.Intersección de alfabetos     |")
         print("|2.Unión de alfabetos                 |5.Calcular cerradura de estrella|")
-        print("|3.Intersección de alfabetos          |                                |")
+        print("|3.Diferencia de alfabetos            |                                |")
         print("|----------------------------------------------------------------------|")
         print("||                          *Proceso con lenguajes*                   ||")
         print("|----------------------------------------------------------------------|")
@@ -65,15 +91,30 @@ def seleccion(opcion):
         print("Opción inválida. Por favor, elija una opción del 1 al 14.")
     
 def caso_1():
-    cantidad_alafabetos(int(input("Por favor, ingrese la cantidad de alfabetos a crear (minimo dos): ")))
-    
-    
-
+    cantidad_alfabetos = int(input("Por favor, ingrese la cantidad de alfabetos a crear (minimo dos): "))
+    if cantidad_alfabetos < 2:
+        print("Recuerde que la cantidad mínima de alfabetos es dos. Por favor, elija otra cantidad.")
+        caso_1()
+    else:
+        crear_alfabetos(cantidad_alfabetos)    
+        
 def caso_2():
-    pass
-
+    print("¿Qué alfabetos desea unir?")
+    mostrarAlfabetos()
+    opciones()
+    union = reduce(lambda a, b: a.union(b), alfabetosSeleccionados)
+    print("La union de los alfabetos seleccionados es:")
+    print(union.get())
+    
 def caso_3():
-    pass
+    print("¿ De qué alfabetos deseas la diferencia?")
+    mostrarAlfabetos()
+    opciones = input(f"Ingrese los numeros de los alfabetos a los que desea realizar la diferncia separados por comas (1-{len(alfabetos)}): ")
+    numeros = [int(opcion) for opcion in opciones.split(",")]
+    alfabetosSeleccionados = [alfabetos[numero-1] for numero in numeros]
+    union = reduce(lambda a, b: a.union(b), alfabetosSeleccionados)
+    print("La union de los alfabetos seleccionados es:")
+    print(union.get())
 
 def caso_4():
     pass

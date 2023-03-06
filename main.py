@@ -59,7 +59,7 @@ def prueba():
     l3.generar_palabras([a3],4)
     print("Languaje 1")
     print(l1.get())
-    print(l1.potencia(3))
+    print(l1.potencia(0))
     # print("Lenguaje 2")
     # print(l2.get())
     # print("Lenguaje 3")
