@@ -22,6 +22,20 @@ class Lenguaje(Operaciones):
                 conca.append(palabra1 + palabra2)      
         return Lenguaje(conca)
     
+    def potencia(self, pot):
+        poten = set("")
+        if(pot == 0):
+            return poten
+        elif(pot == 1):
+            for palabra in self.elementos:
+                poten.add(palabra)
+        else:      
+            for palabra1 in self.elementos:
+                for palabra2 in self.potencia(pot-1):
+                    poten.add(palabra2)
+                    poten.add(palabra1 + palabra2)
+        return poten
+        
     def inversa(self):
         inver = []
         for palabra in self.elementos:
