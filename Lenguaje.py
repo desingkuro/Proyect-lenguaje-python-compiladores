@@ -9,7 +9,7 @@ class Lenguaje(Operaciones):
     def generar_palabras(self, alfabetos, cantidad_palabras):
         elementos = []
         for alfabeto in alfabetos:
-            elementos += ["".join(random.choices(alfabeto.elementos, k=random.randint(1, 20))) for i in range(cantidad_palabras)]
+            elementos += ["".join(random.choices([c for c in alfabeto.elementos if c != "#"], k=random.randint(1, 20))) for i in range(cantidad_palabras)]
         self.elementos = elementos
         
     def get(self):
@@ -25,7 +25,7 @@ class Lenguaje(Operaciones):
     def potencia(self, pot):
         poten = set("")
         if(pot == 0):
-            return poten
+            return []
         elif(pot == 1):
             for palabra in self.elementos:
                 poten.add(palabra)

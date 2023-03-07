@@ -15,7 +15,8 @@ class Alfabeto(Operaciones):
         while(len(palabras) - 1 != nPalabras):
             cantR = random.randint(1, 20)
             palabra_aleatoria = "".join(random.choices(self.elementos, k= cantR))
-            palabras.add(palabra_aleatoria)
+            if "#" not in palabra_aleatoria:
+                palabras.add(palabra_aleatoria)
         return Alfabeto(palabras)
         
     def __str__(self):
