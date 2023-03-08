@@ -6,7 +6,7 @@ from Lenguaje import Lenguaje
 alfabetos = []
 lenguajes = []
 
-def crear_alfabetos(cantidad):
+def crearAlfabetos(cantidad):
     print("En este programa el elemento vacío es el #")
     for i in range(cantidad):
         simbolos = input(f"Ingrese los símbolos del alfabeto {i+1} separados por comas: ").split(",")
@@ -67,8 +67,8 @@ def crearLenguajes():
     opciones2()
     cantidadl1 = int(input("Ingrese la cantidad de palabras que quiere que contenga el primer lenguaje: "))
     cantidadl2 = int(input("Ingrese la cantidad de palabras que quiere que contenga el segundo lenguaje: "))
-    l1.generar_palabras([alfabetosSeleccionados2[0]], cantidadl1)
-    l2.generar_palabras([alfabetosSeleccionados2[1]], cantidadl2)
+    l1.generarPalabras([alfabetosSeleccionados2[0]], cantidadl1)
+    l2.generarPalabras([alfabetosSeleccionados2[1]], cantidadl2)
     lenguajes.append(l1)
     lenguajes.append(l2)
     mostrarLenguajes()
@@ -122,19 +122,19 @@ def seleccion(opcion):
         12: caso_12,
         13: caso_13
     }
-    opcion_elegida = opciones.get(x)
-    if opcion_elegida:
-        opcion_elegida()
+    opcionElegida = opciones.get(x)
+    if opcionElegida:
+        opcionElegida()
     else:
         print("Opción inválida. Por favor, elija una opción del 1 al 14.")
     
 def caso_1():
-    cantidad_alfabetos = int(input("Por favor, ingrese la cantidad de alfabetos a crear (mínimo dos): "))
-    if cantidad_alfabetos < 2:
+    cantidadAlfabetos = int(input("Por favor, ingrese la cantidad de alfabetos a crear (mínimo dos): "))
+    if cantidadAlfabetos < 2:
         print("Recuerde que la cantidad mínima de alfabetos es dos. Por favor, elija otra cantidad.")
         caso_1()
     else:
-        crear_alfabetos(cantidad_alfabetos)    
+        crearAlfabetos(cantidadAlfabetos)    
         
 def caso_2():
     if len(alfabetos) == 0:
@@ -146,6 +146,7 @@ def caso_2():
         union = reduce(lambda a, b: a.union(b), seleccionados)
         print("La union de los alfabetos seleccionados es:")
         print(union.get())
+        input("Presione la tecla ENTER para continuar...")
     
 def caso_3():
     if len(alfabetos) == 0:
@@ -157,6 +158,7 @@ def caso_3():
         diferencia = reduce(lambda a, b: a.diferencia(b), seleccionados)
         print("La diferencia de los alfabetos seleccionados es:")
         print(diferencia.get())
+        input("Presione la tecla ENTER para continuar...")
 
 def caso_4():
     if len(alfabetos) == 0:
@@ -168,6 +170,7 @@ def caso_4():
         interseccion = reduce(lambda a, b: a.interseccion(b), seleccionados)
         print("La interseccion de los alfabetos seleccionados es:")
         print(interseccion.get())
+        input("Presione la tecla ENTER para continuar...")
 
 def caso_5():
     if len(alfabetos) == 0:
@@ -181,12 +184,14 @@ def caso_5():
             opcion = int(input(f"Ingrese el número del alfabeto entre 1 y {len(alfabetos)}: ")) 
         cantidad = int(input("¿Qué cantidad de palabras quiere que haya?: "))
         print(alfabetos[opcion - 1].cerraduraEstrellas(cantidad).get())
+        input("Presione la tecla ENTER para continuar...")
     
 def caso_6():
     if len(alfabetos) == 0:
         print("Primero debe crear los alfabetos para poder generar los lenguajes.")
     else:
         crearLenguajes()
+        input("Presione la tecla ENTER para continuar...")
 def caso_7():
     if len(lenguajes) == 0:
         print("Primero debe crear los lenguajes.")
@@ -197,6 +202,7 @@ def caso_7():
         union = seleccionados[0].union(seleccionados[1])
         print("La unión de los lenguajes es:")
         print(union.get())
+        input("Presione la tecla ENTER para continuar...")
         
 def caso_8():
     if len(lenguajes) == 0:
@@ -208,6 +214,7 @@ def caso_8():
         diferencia = seleccionados[0].diferencia(seleccionados[1])
         print("La diferencia de los lenguajes es:")
         print(diferencia.get())
+        input("Presione la tecla ENTER para continuar...")
 
 def caso_9():
     if len(lenguajes) == 0:
@@ -219,6 +226,7 @@ def caso_9():
         interseccion = seleccionados[0].interseccion(seleccionados[1])
         print("La interseccion de los lenguajes es:")
         print(interseccion.get())
+        input("Presione la tecla ENTER para continuar...")
 
 def caso_10():
     if len(lenguajes) == 0:
@@ -229,6 +237,7 @@ def caso_10():
         opciones(lenguajes, "lenguajes")
         print("La concatenacion de los lenguajes es:")
         print(seleccionados[0].concatenacion(seleccionados[1]))
+        input("Presione la tecla ENTER para continuar...")
 
 def caso_11():
     if len(lenguajes) == 0:
@@ -242,6 +251,7 @@ def caso_11():
             opcion = int(input(f"Ingrese el número del lenguaje entre 1 y 2: ")) 
         cantidad = int(input("Ingrese el valor de la potencia: "))
         print(lenguajes[opcion - 1].potencia(cantidad))
+        input("Presione la tecla ENTER para continuar...")
 
 def caso_12():
     if len(lenguajes) == 0:
@@ -255,6 +265,7 @@ def caso_12():
             opcion = int(input(f"Ingrese el número del lenguaje entre 1 y 2: ")) 
         print(f"La inversa del lenguaje {opcion} es: ")
         print(lenguajes[opcion - 1].inversa().get())
+        input("Presione la tecla ENTER para continuar...")
 
 def caso_13():
     if len(lenguajes) == 0:
@@ -268,6 +279,7 @@ def caso_13():
             opcion = int(input(f"Ingrese el número del lenguaje entre 1 y 2: ")) 
         print(f"La cardinalidad del lenguaje {opcion} es: ")
         print(lenguajes[opcion - 1].cardinalidad())
+        input("Presione la tecla ENTER para continuar...")
 
 if __name__ == "__main__":
     menu()

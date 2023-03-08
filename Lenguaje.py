@@ -6,10 +6,10 @@ class Lenguaje(Operaciones):
     def __init__(self, elementos):
         super().__init__(elementos, tipo = Lenguaje)
         
-    def generar_palabras(self, alfabetos, cantidad_palabras):
+    def generarPalabras(self, alfabetos, cantidadPalabras):
         elementos = []
         for alfabeto in alfabetos:
-            elementos += ["".join(random.choices([c for c in alfabeto.elementos if c != "#"], k=random.randint(1, 20))) for i in range(cantidad_palabras)]
+            elementos += ["".join(random.choices([c for c in alfabeto.elementos if c != "#"], k=random.randint(1, 20))) for i in range(cantidadPalabras)]
         self.elementos = elementos
         
     def get(self):
