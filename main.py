@@ -134,7 +134,9 @@ def caso_1():
         print("Recuerde que la cantidad mínima de alfabetos es dos. Por favor, elija otra cantidad.")
         caso_1()
     else:
-        crearAlfabetos(cantidadAlfabetos)    
+        crearAlfabetos(cantidadAlfabetos)   
+        mostrarAlfabetos()
+        input("Presione la tecla ENTER para continuar...") 
         
 def caso_2():
     if len(alfabetos) == 0:
